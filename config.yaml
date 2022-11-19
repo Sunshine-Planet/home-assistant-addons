@@ -1,0 +1,24 @@
+name: "CD Reader"
+description: "Allows mounting of CD drive to read mp3s for plex, etc"
+version: "1.0.0"
+slug: "cd_reader"
+init: false
+arch:
+  - amd64
+options:
+  mp3_path: /media/music
+schema:
+  mp3_path: str
+privileged: 
+  - SYS_ADMIN
+  - DAC_READ_SEARCH
+map:
+  - media:rw
+  - share:rw
+boot: manual
+environment:
+  PGID: '0'
+  PUID: '0'
+devices:
+  - /dev/sr0
+#apparmor: true
