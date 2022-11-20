@@ -38,8 +38,7 @@ RUN  set -x \
       libuv \
       json-c \
       pwgen \
-      tmux \
-      zsh
+      tmux 
 
 
 RUN git clone --branch "v4.3.2" --depth=1 \

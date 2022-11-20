@@ -1,0 +1,1 @@
+[ "$(id -u)" -eq 0 ] && echo 'HINT: try `abcde -o mp3:-V2`'
