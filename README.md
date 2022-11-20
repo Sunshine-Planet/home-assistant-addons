@@ -37,4 +37,4 @@ Uses `abcde` to read software.   Connects to multiple CDDB using the `musicbrain
 
 ### Terminal
 
-Heavy use of [addon-ssh](https://github.com/hassio-addons/addon-ssh) logic to expose an interactive terminal via [ttyd](https://github.com/tsl0922/ttyd.git)
+Heavy use of [addon-ssh](https://github.com/hassio-addons/addon-ssh) components to expose an interactive terminal via [ttyd](https://github.com/tsl0922/ttyd.git)
