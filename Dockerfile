@@ -7,8 +7,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Add env
 ENV TERM="xterm-256color"
 
+COPY rootfs/etc/apk /etc/apk
+
 RUN  set -x \
   \
+  && apk update \
   && apk add --no-cache --virtual deps \
       build-base \
       curl \
@@ -17,10 +20,10 @@ RUN  set -x \
       perl-dev \
       perl-utils \
       git \
-      cmake=3.23.1-r0 \
-      openssl-dev=1.1.1s-r0 \
-      libuv-dev=1.44.1-r0 \
-      json-c-dev=0.16-r0 \
+      cmake \
+      openssl-dev \
+      libuv-dev \
+      json-c-dev \
   && apk add --no-cache \
       abcde \
       cdparanoia \
@@ -41,6 +44,8 @@ RUN  set -x \
       tmux \
       zip
 
+RUN apk add libdvdcss \
+  handbrake
 
 RUN git clone --branch "v4.3.2" --depth=1 \
         https://github.com/warmcat/libwebsockets.git /tmp/libwebsockets \
