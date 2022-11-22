@@ -1,0 +1,59 @@
+version: 2.1
+
+executors:
+  x64:
+    resource_class: medium
+    machine:
+      image: ubuntu-2004:2022.10.1
+      docker_layer_caching: true
+  
+
+workflows:
+  main:
+    jobs:
+      - publish
+
+jobs:
+  publish:
+    executor: x64
+    steps:
+      - checkout
+      - run: 
+          name: build docker
+          environment:
+            MAJOR: 0
+            MINOR: 0
+            PATCH: 0
+          command: |
+            cd cd-reader
+            source ../.circleci/semver.sh #load version
+            echo "${MAJOR}.${MINOR}.${PATCH}"
+            export BUILD_FROM="homeassistant/amd64-base:latest"
+            docker build --progress tty \
+            --build-arg BUILD_FROM=$BUILD_FROM \
+            --build-arg BUILD_VERSION=${MAJOR}.${MINOR}.${PATCH} \
+            -t eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH} .
+      - when:
+          condition:
+            equal: [ main, << pipeline.git.branch >> ]
+          steps:
+            - run: 
+                name: Docker Publish
+                command: |
+                  cd cd-reader
+                  source ../.circleci/semver.sh #load version
+                  docker login -u $DOCKER_USER -p "$DOCKER_PASS"
+                  docker push eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
+            - run:
+                name: CodeNotary
+                command: |
+                  cd cd-reader
+                  source ../.circleci/semver.sh #load version
+                  wget https://github.com/codenotary/cas/releases/download/v1.0.3/cas-v1.0.3-linux-amd64
+                  mv cas-* cas && chmod a+x cas
+                  ./cas login
+                  ./cas bom docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
+                  ./cas notarize --ci-attr "docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}"
+                  ./cas authenticate --signerID "ollitech@gmail.com" --silent "docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}"
+                  
+# VS Code Extension Version: 1.1.1
