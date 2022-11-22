@@ -1,8 +1,9 @@
 name: "CD Reader"
 description: "Allows mounting of CD drive to read mp3s for plex, etc"
-version: "1.0.10"
+version: "1.0.11"
 slug: "cd_reader"
 init: false
+startup: services
 image: eddiewebb/ha-cd-reader-amd64
 arch:
   - amd64
@@ -66,3 +67,4 @@ environment:
 devices:
   - /dev/sr0
 apparmor: false
+uart: true
