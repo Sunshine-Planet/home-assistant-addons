@@ -109,10 +109,7 @@ RUN apk del .build-dependencies
 COPY rootfs /  
 
 RUN \
-    chmod 0750 /etc/sudo.conf \
-    && chmod 0750 -R /etc/sudoers.d \
-    && chmod 0640 /etc/sudoers.d \
-    && chmod 0750 -R /etc/cont-init.d \
+    chmod 0750 -R /etc/cont-init.d \
     && chmod a+x -R /etc/services.d
 
       
