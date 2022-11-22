@@ -50,7 +50,7 @@ RUN  set -x \
 RUN apk add libdvdcss \
   handbrake
 
-RUN && sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
+RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
     \
     && git clone --branch "v4.3.2" --depth=1 \
         https://github.com/warmcat/libwebsockets.git /tmp/libwebsockets \
