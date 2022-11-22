@@ -16,7 +16,7 @@ COPY rootfs/etc/apk /etc/apk
 RUN  set -x \
   \
   && apk update \
-    apk add --no-cache --virtual .build-dependencies \
+  &&  apk add --no-cache --virtual .build-dependencies \
         bsd-compat-headers=0.7.2-r3 \
         build-base=0.5-r2 \
         cmake=3.23.1-r0 \
