@@ -1,5 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:12.2.7
 FROM $BUILD_FROM
+# Setup base
+ARG BUILD_ARCH=amd64
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -42,12 +44,15 @@ RUN  set -x \
       json-c \
       pwgen \
       tmux \
-      zip
+      zip \
+      zsh
 
 RUN apk add libdvdcss \
   handbrake
 
-RUN git clone --branch "v4.3.2" --depth=1 \
+RUN && sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
+    \
+    && git clone --branch "v4.3.2" --depth=1 \
         https://github.com/warmcat/libwebsockets.git /tmp/libwebsockets \
     \
     && mkdir -p /tmp/libwebsockets/build \

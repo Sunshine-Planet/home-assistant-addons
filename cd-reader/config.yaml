@@ -8,6 +8,7 @@ arch:
   - amd64
 options:
   mp3_path: /media/music
+  mp4_path: /media/movies
   ssh:
     username: hassio
     password: ""
@@ -23,6 +24,7 @@ options:
   init_commands: []
 schema:
   mp3_path: str
+  mp4_path: str
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   ssh:
     username: str
