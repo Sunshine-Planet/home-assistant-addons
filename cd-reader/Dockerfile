@@ -105,6 +105,11 @@ RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009'
 
 COPY rootfs /  
 
+RUN \
+    chmod 0750 /etc/sudo.conf \
+    && chmod 0750 -R /etc/sudoers.d \
+    && chmod 0640 /etc/sudoers.d
+
       
 RUN  mkdir -p /media/music 
 
