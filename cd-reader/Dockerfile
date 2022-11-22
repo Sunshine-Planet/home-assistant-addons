@@ -10,7 +10,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV TERM="xterm-256color"
 
 
-
+# DEPENDENCIES TO REMOVE AFTER
 RUN  set -x \
   \
   &&  apk add --no-cache --virtual .build-dependencies \
@@ -24,7 +24,8 @@ RUN  set -x \
         openssl-dev \
         python3-dev \
         zlib-dev 
-    
+
+# Core Utilities    
     RUN apk add --no-cache \
         git \
         json-c \
@@ -42,7 +43,7 @@ RUN  set -x \
         zip \
         zsh 
 
-
+# Experimental tools (rippers)
 COPY rootfs/etc/apk /etc/apk
 
 RUN apk add libdvdcss \
@@ -52,6 +53,7 @@ RUN apk add libdvdcss \
       abcde \
       cdparanoia 
 
+# Web Terminal
 RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
     \
     && git clone --branch "v4.3.2" --depth=1 \
@@ -89,6 +91,7 @@ RUN pip3 install -U \
     eyed3 \
     pylast==2.4.0 
   
+## MP3 Disc ID snd CDDB lookup  
 RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.2.tar.gz \
   && cd /tmp \
   && tar xvf libdiscid.tar.gz \
@@ -104,13 +107,13 @@ RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009'
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')" 
 
+
+# Remove depencenies
 RUN apk del .build-dependencies
 
 COPY rootfs /  
 
-RUN \
-    chmod 0750 -R /etc/cont-init.d \
-    && chmod a+x -R /etc/services.d
+RUN chmod a+x -R /etc/services.d
 
       
 RUN  mkdir -p /media/music 
