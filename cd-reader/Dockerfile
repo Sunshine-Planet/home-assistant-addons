@@ -17,7 +17,6 @@ RUN  set -x \
         bsd-compat-headers \
         build-base \
         cmake \
-        docker \
         json-c-dev \
         libffi-dev \
         libuv-dev \
@@ -27,38 +26,15 @@ RUN  set -x \
         zlib-dev 
     
     RUN apk add --no-cache \
-        ack \
-        alsa-plugins-pulse \
-        alsa-utils \
-        awake \
-        bash-completion \
-        bind-tools \
-        bluez \
-        colordiff \
-        device-mapper-libs \
-        git \
-        htop \
         json-c \
         libltdl \
         libuv \
-        libxml2-utils \
-        mosh \
-        mosquitto-clients \
-        nano-syntax \
-        nano \
-        ncurses \
-        net-tools \
-        networkmanager \
-        nmap \
+        libxml2 \
         openssh \
         openssl \
         pwgen \
-        pulseaudio-utils \
         py3-pip \
         python3 \
-        rsync \
-        sqlite \
-        sudo \
         tmux \
         vim \
         wget \

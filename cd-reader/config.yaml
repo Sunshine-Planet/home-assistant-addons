@@ -1,6 +1,6 @@
 name: "CD Reader"
 description: "Allows mounting of CD drive to read mp3s for plex, etc"
-version: "1.0.11"
+version: "1.0.12"
 slug: "cd_reader"
 init: false
 startup: services
