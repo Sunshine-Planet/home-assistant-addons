@@ -1,8 +1,10 @@
-#!/command/with-contenv bashio
+#!/usr/bin/env bashio
 
+echo -e "MP3 Folder: $(bashio::config 'mp3_path')\n"
 echo -e "MP4 Folder: $(bashio::config 'mp4_path')\n"
 
-[ "$(id -u)" -eq 0 ] && \
+echo "OUTPUTDIR=$(bashio::config 'mp3_path')" >> /etc/abcde.conf
+
 echo -e '
 USAGE: This add-on supports CD and DVD Backups. \n
 TO BACKUP CDs: Insert CD and run `cd` to fire `abcde` with default values and writing to MP3 directory.\n
