@@ -136,7 +136,7 @@ RUN \
     && chmod 0750 -R /etc/sudoers.d \
     && chmod 0640 /etc/sudoers.d \
     && chmod 0750 -R /etc/cont-init.d \
-    && chmod 0750 -R /etc/services
+    && chmod a+x -R /etc/services.d
 
       
 RUN  mkdir -p /media/music 
