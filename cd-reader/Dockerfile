@@ -26,6 +26,7 @@ RUN  set -x \
         zlib-dev 
     
     RUN apk add --no-cache \
+        git \
         json-c \
         libltdl \
         libuv \
