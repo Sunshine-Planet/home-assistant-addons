@@ -9,72 +9,71 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Add env
 ENV TERM="xterm-256color"
 
-COPY rootfs/etc/apk /etc/apk
-
 
 
 RUN  set -x \
   \
-  && apk update \
   &&  apk add --no-cache --virtual .build-dependencies \
-        bsd-compat-headers=0.7.2-r3 \
-        build-base=0.5-r2 \
-        cmake=3.23.1-r0 \
-        docker=20.10.16-r0 \
-        json-c-dev=0.16-r0 \
-        libffi-dev=3.4.2-r1 \
-        libuv-dev=1.44.1-r0 \
+        bsd-compat-headers \
+        build-base \
+        cmake \
+        docker \
+        json-c-dev \
+        libffi-dev \
+        libuv-dev \
         libxml2-dev \
-        openssl-dev=1.1.1o-r0 \
-        python3-dev=3.10.4-r0 \
-        zlib-dev=1.2.12-r1 \
-    \
-    && apk add --no-cache \
-        ack=3.5.0-r1 \
-        alsa-plugins-pulse=1.2.6-r1 \
-        alsa-utils=1.2.6-r0 \
-        awake=1.0-r7 \
-        bash-completion=2.11-r4 \
-        bind-tools=9.16.29-r0 \
-        bluez=5.64-r0 \
-        colordiff=1.0.20-r0 \
-        device-mapper-libs=2.02.187-r2 \
-        git=2.36.1-r0 \
-        htop=3.2.0-r1 \
-        json-c=0.16-r0 \
-        libltdl=2.4.7-r0 \
-        libuv=1.44.1-r0 \
-        libxml2-utils=2.9.14-r0 \
-        mosh=1.3.2-r22 \
-        mosquitto-clients=2.0.14-r0 \
-        nano-syntax=6.3-r0 \
-        nano=6.3-r0 \
-        ncurses=6.3_p20220521-r0 \
-        net-tools=2.10-r0 \
-        networkmanager=1.38.0-r0 \
-        nmap=7.92-r2 \
-        openssh=9.0_p1-r1 \
-        openssl=1.1.1o-r0 \
-        pwgen=2.08-r1 \
-        pulseaudio-utils=15.0-r2 \
-        py3-pip=22.1.1-r0 \
-        python3=3.10.4-r0 \
-        rsync=3.2.4-r0 \
-        sqlite=3.38.5-r0 \
-        sudo=1.9.10-r0 \
-        tmux=3.2a-r0 \
-        vim=8.2.5000-r0 \
-        wget=1.21.3-r0 \
-        zip=3.0-r9 \
-        zsh=5.8.1-r4 
+        openssl-dev \
+        python3-dev \
+        zlib-dev 
+    
+    RUN apk add --no-cache \
+        ack \
+        alsa-plugins-pulse \
+        alsa-utils \
+        awake \
+        bash-completion \
+        bind-tools \
+        bluez \
+        colordiff \
+        device-mapper-libs \
+        git \
+        htop \
+        json-c \
+        libltdl \
+        libuv \
+        libxml2-utils \
+        mosh \
+        mosquitto-clients \
+        nano-syntax \
+        nano \
+        ncurses \
+        net-tools \
+        networkmanager \
+        nmap \
+        openssh \
+        openssl \
+        pwgen \
+        pulseaudio-utils \
+        py3-pip \
+        python3 \
+        rsync \
+        sqlite \
+        sudo \
+        tmux \
+        vim \
+        wget \
+        zip \
+        zsh 
 
+
+COPY rootfs/etc/apk /etc/apk
 
 RUN apk add libdvdcss \
       flac \
       lame \
   handbrake \
       abcde \
-      cdparanoia \
+      cdparanoia 
 
 RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
     \
@@ -126,8 +125,9 @@ RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009'
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'YAML')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'WebService::MusicBrainz')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')" \
-  && apk del deps
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')" 
+
+RUN apk del .build-dependencies
 
 COPY rootfs /  
 
