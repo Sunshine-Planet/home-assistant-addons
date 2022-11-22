@@ -1,6 +1,6 @@
 name: "CD Reader"
 description: "Allows mounting of CD drive to read mp3s for plex, etc"
-version: "1.0.6"
+version: "1.0.7"
 slug: "cd_reader"
 init: false
 image: eddiewebb/ha-cd-reader-amd64

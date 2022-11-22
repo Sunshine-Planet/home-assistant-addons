@@ -23,6 +23,7 @@ RUN  set -x \
       perl-utils \
       git \
       cmake \
+      docker=20.10.20-r0 \
       openssl-dev \
       libuv-dev \
       json-c-dev \
