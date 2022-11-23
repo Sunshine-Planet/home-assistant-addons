@@ -1,6 +1,6 @@
 
 # #this file witll be whatever shell user has, but we invoke bashio shell for config
-source /configure.sh
+bashio /configure.sh
 
 function dvd() {
     echo "will write movie to: $MP4_PATH"
