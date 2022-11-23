@@ -37,8 +37,7 @@ RUN  set -x \
       libxml2 \
       mutagen \
       perl \
-      python3 \
-      py3-pip \
+      eyed3 \
       openssl \
       openssh \
       perl-mojolicious \
@@ -85,9 +84,6 @@ RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
     && make \
     && make install
 
-RUN pip3 install -U \
-    eyed3 \
-    pylast==2.4.0 
   
 RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.2.tar.gz \
   && cd /tmp \
