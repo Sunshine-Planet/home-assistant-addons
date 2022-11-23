@@ -1,9 +1,5 @@
 #!/usr/bin/env bashio
 
-echo -e "MP3 Folder: \n"
-echo -e "MP4 Folder: $(bashio::config 'mp4_path')\n"
-
-
 function dvd() {
     TITLE=`HandBrakeCLI -I -i /dev/sr0 -o /dev/null/garabe.mp4 2>&1 | grep 'DVD Title:' | head -1 | rev | cut -f1 -d" " | rev | tr "_" " "`
     HandBrakeCLI --main-feature -i /dev/sr0 -o "$(bashio::config 'mp4_path')/${TITLE}.mp4" -q 20 -B 160 -s none
