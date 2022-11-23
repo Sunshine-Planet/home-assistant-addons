@@ -47,8 +47,6 @@ RUN  set -x \
       zip
 
 
-COPY rootfs/etc/apk /etc/apk
-RUN apk add handbrake libdvdcss
 
 # Web Terminal
 RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
@@ -97,8 +95,12 @@ RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009'
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'XML::LibXML')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'YAML')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'WebService::MusicBrainz')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')"
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')" \
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')"
 
+
+COPY rootfs/etc/apk /etc/apk
+RUN apk add handbrake libdvdcss
 
 # Remove depencenies
 RUN apk del .build-dependencies
