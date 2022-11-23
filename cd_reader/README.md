@@ -15,32 +15,9 @@ This add-on is a 3rd party add-on, so install is 2 steps.
 [![Open your Home Assistant instance and show the Supervisor add-on store.](https://my.home-assistant.io/badges/supervisor_store.svg)](https://my.home-assistant.io/redirect/supervisor_store/)
 
 
+## Usage
 
-
-## Configure
-
-1) Provide paths for mp3 and mp4 files (defaults to `/media/music` and `/media/movies`)
-
-## Using
-
-Open web UI and run the provided `mp3 or dvd` commands.
-
-
-## Concepts
-
-## CD Rom Access
-
-This was the toughtest part of this darn addon, fighting HA to get right permissions for access to CDROM, hence a slightly lower security score.
-
-### CD Software
-
-Uses `abcde` to read software.   Connects to multiple CDDB using the `musicbrainz` app and fallback `cbbd` which is less robust but more titles.
-
-`abcde -o mp3:-V2 -x -p  [tracks]`
-
-### DVD Software
-
-Uses `Handbrake` and `libdvdcss` to backup encrypted DVD movies to your HA instance.  By default it grabs primary language, no subtitles, feature only.
+See (DOCS)[DOCS.md] for usage
 
 ### Terminal
 
