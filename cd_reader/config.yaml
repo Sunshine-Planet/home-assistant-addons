@@ -2,7 +2,7 @@ name: "CD/DVD Reader"
 description: |
   "Reads DVDs and CDs as mp4 and mp3 files respectively. 
   Great for users with Plex who want to backjup their digital library."
-version: "1.0.19"
+version: "1.0.20"
 slug: "cd_reader"
 init: false
 startup: services
