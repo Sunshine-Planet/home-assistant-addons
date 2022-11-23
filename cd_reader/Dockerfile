@@ -15,7 +15,7 @@ COPY rootfs/etc/apk /etc/apk
 RUN  set -x \
   \
   && apk update \
-  && apk add --no-cache --virtual deps \
+  && apk add --no-cache --virtual .build-dependencies \
       build-base \
       curl \
       libxml2-dev \
