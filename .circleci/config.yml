@@ -25,7 +25,7 @@ jobs:
             MINOR: 0
             PATCH: 0
           command: |
-            cd cd-reader
+            cd cd_reader
             source ../.circleci/semver.sh #load version
             echo "${MAJOR}.${MINOR}.${PATCH}"
             export BUILD_FROM="homeassistant/amd64-base:latest"
@@ -40,14 +40,14 @@ jobs:
             - run: 
                 name: Docker Publish
                 command: |
-                  cd cd-reader
+                  cd cd_reader
                   source ../.circleci/semver.sh #load version
                   docker login -u $DOCKER_USER -p "$DOCKER_PASS"
                   docker push eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
             - run:
                 name: CodeNotary
                 command: |
-                  cd cd-reader
+                  cd cd_reader
                   source ../.circleci/semver.sh #load version
                   wget https://github.com/codenotary/cas/releases/download/v1.0.3/cas-v1.0.3-linux-amd64
                   mv cas-* cas && chmod a+x cas
