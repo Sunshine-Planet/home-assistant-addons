@@ -12,39 +12,14 @@ arch:
 options:
   mp3_path: /media/music
   mp4_path: /media/movies
-  ssh:
-    username: hassio
-    password: ""
-    authorized_keys: []
-    sftp: false
-    compatibility_mode: false
-    allow_agent_forwarding: false
-    allow_remote_port_forwarding: false
-    allow_tcp_forwarding: false
   zsh: false
   share_sessions: false
-  packages: []
-  init_commands: []
 schema:
   mp3_path: str
   mp4_path: str
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
-  ssh:
-    username: str
-    password: password
-    authorized_keys:
-      - str
-    sftp: bool
-    compatibility_mode: bool
-    allow_agent_forwarding: bool
-    allow_remote_port_forwarding: bool
-    allow_tcp_forwarding: bool
   zsh: bool
   share_sessions: bool
-  packages:
-    - str
-  init_commands:
-    - str
 ingress: true
 ports:
   22/tcp: 24

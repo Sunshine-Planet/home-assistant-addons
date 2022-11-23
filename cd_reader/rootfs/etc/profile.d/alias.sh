@@ -11,9 +11,8 @@ function dvd() {
 }
 
 
-function cd() {
+function mp3() {
     abcde -o mp3:-V2 -x -p
 }
 
-alias movie='dvd'
-alias mp3='cd'
+alias mp4='dvd'

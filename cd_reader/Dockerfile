@@ -95,6 +95,14 @@ RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
     && make install
 
 
+RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.2.tar.gz \
+  && cd /tmp \
+  && tar xvf libdiscid.tar.gz \
+  && cd libdiscid-0.6.2 \
+  && ./configure \
+  && make \
+  && make install 
+
 # Remove depencenies
 RUN apk del .build-dependencies
 
