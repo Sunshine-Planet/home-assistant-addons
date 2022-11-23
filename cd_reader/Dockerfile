@@ -10,55 +10,45 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV TERM="xterm-256color"
 
 
-# DEPENDENCIES TO REMOVE AFTER
-RUN  set -x \
-  \
-  &&  apk add --no-cache --virtual .build-dependencies \
-        bsd-compat-headers \
-        build-base \
-        cmake \
-        json-c-dev \
-        libffi-dev \
-        perl-dev \
-        perl-utils \
-        libuv-dev \
-        libxml2-dev \
-        openssl-dev \
-        python3-dev \
-        zlib-dev
-
-# Core Utilities    
-    RUN apk add --no-cache \
-        git \
-        json-c \
-        libltdl \
-        libuv \
-        libxml2 \
-        openssh \
-        openssl \
-        mutagen \
-        pwgen \
-        py3-pip \
-        python3 \
-        tmux \
-        vim \
-        wget \
-        zip \
-        zsh  \
-        perl-io-socket-ssl \
-        perl-xml-libxml \
-        perl-yaml
-
-# Experimental tools (rippers)
 COPY rootfs/etc/apk /etc/apk
 
-RUN apk add abcde \
-    libdiscid \
-    libdvdcss \
+RUN  set -x \
+  \
+  && apk update \
+  && apk add --no-cache --virtual deps \
+      build-base \
+      curl \
+      libxml2-dev \
+      linux-headers \
+      perl-dev \
+      perl-utils \
+      git \
+      cmake \
+      openssl-dev \
+      libuv-dev \
+      json-c-dev \
+  && apk add --no-cache \
+      abcde \
+      cdparanoia \
       flac \
       lame \
-  handbrake \
-      cdparanoia 
+      less \
+      libcddb \
+      libxml2 \
+      mutagen \
+      perl \
+      python3 \
+      py3-pip \
+      openssl \
+      openssh \
+      libuv \
+      json-c \
+      pwgen \
+      tmux \
+      zip
+
+RUN apk add libdvdcss \
+  handbrake
 
 # Web Terminal
 RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
@@ -94,7 +84,7 @@ RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
     && make \
     && make install
 
-
+  
 RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.2.tar.gz \
   && cd /tmp \
   && tar xvf libdiscid.tar.gz \
@@ -102,6 +92,14 @@ RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/l
   && ./configure \
   && make \
   && make install 
+
+RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009')" \
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'XML::LibXML')" \
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'YAML')" \
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'WebService::MusicBrainz')" \
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')" \
+  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')" \
+  && apk del deps
 
 # Remove depencenies
 RUN apk del .build-dependencies

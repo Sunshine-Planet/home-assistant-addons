@@ -19,12 +19,11 @@ This add-on is a 3rd party add-on, so install is 2 steps.
 
 ## Configure
 
-1) Provide password or key n config
-2) Change media path if /media/music is not where you want titles ( `/media/music/album/01.Song Title.mp3`)
+1) Provide paths for mp3 and mp4 files (defaults to `/media/music` and `/media/movies`)
 
 ## Using
 
-Open web UI and run the provided `abcde` utility.
+Open web UI and run the provided `mp3 or dvd` commands.
 
 
 ## Concepts
