@@ -41,6 +41,7 @@ RUN  set -x \
       py3-pip \
       openssl \
       openssh \
+      perl-mojolicious \
       libuv \
       json-c \
       pwgen \
