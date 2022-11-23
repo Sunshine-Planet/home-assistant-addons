@@ -112,11 +112,10 @@ RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009'
 RUN apk del .build-dependencies
 
 COPY rootfs /  
-
-RUN chmod a+x -R /etc/services.d
-
-      
-RUN  mkdir -p /media/music 
+COPY configure.sh /configure.sh 
+RUN \
+    chmod a+x /configure.sh \
+ && chmod a+x -R /etc/services.d
 
 COPY abcde.conf /etc/abcde.conf
 
