@@ -19,6 +19,8 @@ RUN  set -x \
         cmake \
         json-c-dev \
         libffi-dev \
+        perl-dev \
+        perl-utils \
         libuv-dev \
         libxml2-dev \
         openssl-dev \
@@ -34,6 +36,7 @@ RUN  set -x \
         libxml2 \
         openssh \
         openssl \
+        mutagen \
         pwgen \
         py3-pip \
         python3 \
@@ -99,13 +102,13 @@ RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/l
   && ./configure \
   && make \
   && make install 
-
 RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'XML::LibXML')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'YAML')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'WebService::MusicBrainz')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')" \
   &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')" 
+
 
 
 # Remove depencenies
