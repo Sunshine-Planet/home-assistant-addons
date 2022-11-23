@@ -10,7 +10,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV TERM="xterm-256color"
 
 
-COPY rootfs/etc/apk /etc/apk
 
 RUN  set -x \
   \
@@ -47,8 +46,9 @@ RUN  set -x \
       tmux \
       zip
 
-RUN apk add libdvdcss \
-  handbrake
+
+COPY rootfs/etc/apk /etc/apk
+RUN apk add handbrake libdvdcss
 
 # Web Terminal
 RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
