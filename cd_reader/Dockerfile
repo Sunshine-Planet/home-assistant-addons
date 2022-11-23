@@ -25,7 +25,7 @@ RUN  set -x \
         libxml2-dev \
         openssl-dev \
         python3-dev \
-        zlib-dev 
+        zlib-dev
 
 # Core Utilities    
     RUN apk add --no-cache \
@@ -44,16 +44,20 @@ RUN  set -x \
         vim \
         wget \
         zip \
-        zsh 
+        zsh  \
+        perl-io-socket-ssl \
+        perl-xml-libxml \
+        perl-yaml
 
 # Experimental tools (rippers)
 COPY rootfs/etc/apk /etc/apk
 
-RUN apk add libdvdcss \
+RUN apk add abcde \
+    libdiscid \
+    libdvdcss \
       flac \
       lame \
   handbrake \
-      abcde \
       cdparanoia 
 
 # Web Terminal
@@ -89,26 +93,6 @@ RUN sed -i -e "s#bin/ash#bin/zsh#" /etc/passwd \
         -DCMAKE_VERBOSE_MAKEFILE=TRUE \
     && make \
     && make install
-
-RUN pip3 install -U \
-    eyed3 \
-    pylast==2.4.0 
-  
-## MP3 Disc ID snd CDDB lookup  
-RUN curl -SLo /tmp/libdiscid.tar.gz http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.2.tar.gz \
-  && cd /tmp \
-  && tar xvf libdiscid.tar.gz \
-  && cd libdiscid-0.6.2 \
-  && ./configure \
-  && make \
-  && make install 
-RUN perl -MCPAN -e "CPAN::Shell->notest('install', 'IO::Socket::SSL', '>= 2.009')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'XML::LibXML')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'YAML')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'WebService::MusicBrainz')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz::DiscID')" \
-  &&  perl -MCPAN -e "CPAN::Shell->notest('install', 'MusicBrainz')" 
-
 
 
 # Remove depencenies
