@@ -1,9 +1,11 @@
-# CD Reader (Ripper) for Home Assistant
+# CD & DVD Reader (Ripper) for Home Assistant
 
-You got a Mediqa Center (i.e. HA w/ Plex)...
-You got Media Players...
+You got a Media Center (i.e. HA w/ Plex)...  
+You got Media Players...  
 
 ..got media?
+
+This add-on can read DVDs and CDs to your Media library as mp4 and mp3 files.
 
 ## Install
 
