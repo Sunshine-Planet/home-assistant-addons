@@ -30,7 +30,7 @@ Open web UI and run the provided `mp3 or dvd` commands.
 
 ## CD Rom Access
 
-This was the toughtest part of this darn addon, fighting HA to get right permissions for access to CDROM.
+This was the toughtest part of this darn addon, fighting HA to get right permissions for access to CDROM, hence a slightly lower security score.
 
 ### CD Software
 
@@ -38,7 +38,10 @@ Uses `abcde` to read software.   Connects to multiple CDDB using the `musicbrain
 
 `abcde -o mp3:-V2 -x -p  [tracks]`
 
+### DVD Software
+
+Uses `Handbrake` and `libdvdcss` to backup encrypted DVD movies to your HA instance.  By default it grabs primary language, no subtitles, feature only.
 
 ### Terminal
 
-Heavy use of [addon-ssh](https://github.com/hassio-addons/addon-ssh) components to expose an interactive terminal via [ttyd](https://github.com/tsl0922/ttyd.git)
+Heavy use of [addon-ssh](https://github.com/hassio-addons/addon-ssh) code and concepts to expose an interactive terminal via [ttyd](https://github.com/tsl0922/ttyd.git)
