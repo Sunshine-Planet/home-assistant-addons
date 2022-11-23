@@ -21,10 +21,6 @@ schema:
   zsh: bool
   share_sessions: bool
 ingress: true
-ports:
-  22/tcp: 24
-ports_description:
-  22/tcp: SSH server port (make empty to disable)
 #docker_api: true
 hassio_api: true
 hassio_role: default
