@@ -20,7 +20,7 @@ function series ()
     MYID=$BASHPID #avoid subshell issues
     minutes=${1:-21} #default: 30 minute shows with ads
     min_dur=$(($minutes * 60))
-    echo "will write titles >${minutes}m to: $MP4_PATH";
+    echo "will write titles >${minutes}m to: $SHOWS_PATH";
     echo "Gettting disc info..."
     HandBrakeCLI -i /dev/sr0 --title=0 --min-duration $min_dur > /tmp/stdout_$MYID.txt 2>/tmp/stderr_$MYID.txt
     TITLE=`cat /tmp/stdout_$MYID.txt | grep 'DVD Title:' | head -1 | rev | cut -f1 -d":" | rev | tr "_" " "`;
@@ -29,8 +29,13 @@ function series ()
     TITLES=($TITLES)
     echo "Found ${#TITLES[@]} titles over $minutes minutes (you can change this by passing minues to command)"
     for index in ${TITLES[@]};do
-        echo "writing title ${index} to $MP4_PATH/${TITLE}-${index}.mp4  ...."
-        HandBrakeCLI --title ${index} -i /dev/sr0 -o "$MP4_PATH/${TITLE}-${index}.mp4"  -q 20 -B 160 -s none 2>/tmp/encode_$MYID.txt;
+        echo "writing title ${index} to $SHOWS_PATH/${TITLE}-${index}.mp4  ...."
+        if [ -f "$SHOWS_PATH/${TITLE}-${index}.mp4" ];then
+            echo "file exists, skip"
+            continue
+        fi
+        echo "please wait.."
+        HandBrakeCLI --title ${index} -i /dev/sr0 -o "$SHOWS_PATH/${TITLE}-${index}.mp4"  -q 20 -B 160 -s none 2>/tmp/encode_$MYID.txt >&2;
         echo -e "\tdone"  
     done
     #
