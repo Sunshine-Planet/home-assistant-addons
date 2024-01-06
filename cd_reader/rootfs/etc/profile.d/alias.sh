@@ -17,6 +17,7 @@ function mp3() {
 
 function series () 
 { 
+    SHOWS_PATH=${SERIES_PATH:-"/media/shows"}
     echo "Usages: series SEASON DISC_FIRST_EPISODE MIN_RUN_MINUTES"
     SEASON=${1:-1}
     DISC_FIRST_EPISODE=${2:-1}
