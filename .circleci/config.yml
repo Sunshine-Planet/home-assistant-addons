@@ -44,16 +44,17 @@ jobs:
                   source ../.circleci/semver.sh #load version
                   docker login -u $DOCKER_USER -p "$DOCKER_PASS"
                   docker push eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
-            - run:
-                name: CodeNotary
-                command: |
-                  cd cd_reader
-                  source ../.circleci/semver.sh #load version
-                  wget https://github.com/codenotary/cas/releases/download/v1.0.3/cas-v1.0.3-linux-amd64
-                  mv cas-* cas && chmod a+x cas
-                  ./cas login
-                  ./cas bom docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
-                  ./cas notarize --ci-attr "docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}"
-                  ./cas authenticate --signerID "ollitech@gmail.com" --silent "docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}"
+            # CAS went dark? repo is gone, no mention of it from CodeNotary anymore..
+            # - run:
+            #     name: CodeNotary
+            #     command: |
+            #       cd cd_reader
+            #       source ../.circleci/semver.sh #load version
+            #       wget https://github.com/codenotary/cas/releases/download/v1.0.3/cas-v1.0.3-linux-amd64
+            #       mv cas-* cas && chmod a+x cas
+            #       ./cas login
+            #       ./cas bom docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
+            #       ./cas notarize --ci-attr "docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}"
+            #       ./cas authenticate --signerID "ollitech@gmail.com" --silent "docker://eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}"
                   
 # VS Code Extension Version: 1.1.1
