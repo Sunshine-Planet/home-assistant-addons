@@ -53,5 +53,21 @@ function series ()
     done
 }
 
+function rename(){
+  SERIES_NAME=${1}
+  SEASON_INDEX=${2}
+  START_INDEX=${3}
+  : ${START_INDEX:?"Usage: $0 \"SERIES_NAME\" SEASON_INDEX START_INDEX"}
+  for file in ./*E?.mp4
+  do
+    THISONE=$((START_INDEX++))
+    echo "Naming ${file} as ${THISONE}"
+    NAME=`printf "${SERIES_NAME} - S%02dE%02d.mp4" ${SEASON_INDEX} ${THISONE}`
+    echo $NAME
+    #mv "${file}" "$NAME"
+  done
+
+}
+
 alias mp4='dvd'
 alias season='series'
