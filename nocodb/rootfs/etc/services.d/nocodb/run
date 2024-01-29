@@ -13,7 +13,12 @@ declare message
 message=$(bashio::config 'message')
 
 ## Print the message the user supplied, defaults to "Hello World..."
-bashio::log.info "${message:="Hello World..."}"
+bashio::log.info "${message:="Starting..."}"
 
+
+
+export PORT=8080
+# provided by hass
+export NC_TOOL_DIR=/data/  
 ## Run your program
-exec /usr/bin/my_program
+exec /usr/bin/nocodb

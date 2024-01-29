@@ -12,7 +12,3 @@ COPY rootfs /
 
 RUN \
     curl http://get.nocodb.com/linux-${BUILD_ARCH} -o nocodb -L && chmod +x nocodb && mv nocodb /usr/bin/nocodb
-
-ENV PORT=8080
-# provided by hass
-ENV NC_TOOL_DIR=/data/  
