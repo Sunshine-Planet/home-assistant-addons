@@ -11,10 +11,14 @@ executors:
 workflows:
   main:
     jobs:
-      - publish
+      - publish:
+          addon: nocodb
 
 jobs:
   publish:
+    parameters: 
+      addon:
+        type: string
     executor: x64
     steps:
       - checkout
@@ -25,14 +29,18 @@ jobs:
             MINOR: 0
             PATCH: 0
           command: |
-            cd cd_reader
+            cd << parameters.addon >>
             source ../.circleci/semver.sh #load version
             echo "${MAJOR}.${MINOR}.${PATCH}"
+            export BUILD_ARCH=amd64
             export BUILD_FROM="homeassistant/amd64-base:latest"
+            export TEMPIO_VERSION="2021.09.0"
             docker build --progress tty \
+            --build-arg TEMPIO_VERSION=$TEMPIO_VERSION \
             --build-arg BUILD_FROM=$BUILD_FROM \
+            --build-arg BUILD_ARCH=$BUILD_ARCH \
             --build-arg BUILD_VERSION=${MAJOR}.${MINOR}.${PATCH} \
-            -t eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH} .
+            -t eddiewebb/ha-<< parameters.addon >>-amd64:${MAJOR}.${MINOR}.${PATCH} .
       - when:
           condition:
             equal: [ main, << pipeline.git.branch >> ]
@@ -40,10 +48,10 @@ jobs:
             - run: 
                 name: Docker Publish
                 command: |
-                  cd cd_reader
+                  cd << parameters.addon >>
                   source ../.circleci/semver.sh #load version
                   docker login -u $DOCKER_USER -p "$DOCKER_PASS"
-                  docker push eddiewebb/ha-cd-reader-amd64:${MAJOR}.${MINOR}.${PATCH}
+                  docker push eddiewebb/ha-<< parameters.addon >>-amd64:${MAJOR}.${MINOR}.${PATCH}
             # CAS went dark? repo is gone, no mention of it from CodeNotary anymore..
             # - run:
             #     name: CodeNotary
