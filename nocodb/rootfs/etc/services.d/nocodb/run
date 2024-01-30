@@ -13,7 +13,7 @@ declare message
 message=$(bashio::config 'message')
 
 ## Print the message the user supplied, defaults to "Hello World..."
-bashio::log.info "${message:="Starting..."}"
+bashio::log.info "Starting..."
 
 
 
@@ -21,4 +21,4 @@ export PORT=8080
 # provided by hass
 export NC_TOOL_DIR=/data/  
 ## Run your program
-exec /usr/bin/nocodb
+cd /nocodb-seed && npm run start
