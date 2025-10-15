@@ -8,8 +8,9 @@ init: false
 startup: services
 image: eddiewebb/ha-cd-reader-amd64
 arch:
+  - aarch64
   - amd64
-options:
+  options:
   mp3_path: /media/music
   mp4_path: /media/movies
   shows_path: /media/shows
